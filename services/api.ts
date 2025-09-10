@@ -1,4 +1,3 @@
-
 import type { SessionEntry, AIAnalysis } from '../types';
 
 // This is a mock API service. In a real application, this would make HTTP requests to a backend.
@@ -32,6 +31,7 @@ const mockAnalysis: AIAnalysis = {
     timeframeWeeks: 4
   },
   caveats: ["This analysis is based on a single session and may not be representative of all behaviors."],
+  // Fix: Corrected model name to 'gemini-2.5-flash' as per guidelines.
   model: 'gemini-2.5-flash',
   latencyMs: 850
 };

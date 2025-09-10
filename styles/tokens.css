@@ -1,0 +1,35 @@
+:root {
+  --bg: #111827;
+  --surface: #1f2937;
+  --card: #1f2937;
+  --elev: #374151;
+  --border: #4b5563;
+  --text: #f9fafb;
+  --muted: #9ca3af;
+  --brand: #4f46e5;
+  --ok: #10b981;
+  --warn: #f59e0b;
+  --error: #ef4444;
+
+  --card-bg-alpha: rgba(31, 41, 55, 0.5); /* For glass effect */
+
+  --radius-md: .5rem;
+  --radius-lg: .75rem;
+  --radius-xl: 1rem;
+}
+
+.theme-light {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --elev: #e5e7eb;
+  --border: #d1d5db;
+  --text: #111827;
+  --muted: #6b7280;
+  --brand: #4f46e5;
+  --ok: #059669;
+  --warn: #d97706;
+  --error: #dc2626;
+
+  --card-bg-alpha: rgba(255, 255, 255, 0.5); /* For glass effect */
+}

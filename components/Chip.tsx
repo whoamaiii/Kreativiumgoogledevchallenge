@@ -1,25 +1,33 @@
-
 import React from 'react';
 
 interface ChipProps {
   label: string;
-  onSelect: () => void;
-  isSelected: boolean;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
+  isSelected?: boolean;
+  onClick?: () => void;
+  className?: string;
 }
 
-const Chip: React.FC<ChipProps> = ({ label, onSelect, isSelected, prefix, suffix }) => {
-  const baseClasses = 'flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer transition-colors duration-200';
-  const selectedClasses = 'bg-brand-primary/20 text-brand-primary border border-brand-primary';
-  const unselectedClasses = 'bg-brand-surface text-brand-subtle-text hover:bg-slate-600 border border-brand-border';
+const Chip: React.FC<ChipProps> = ({ label, isSelected = false, onClick, className = '' }) => {
+  const baseClasses = 'px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer';
   
+  const selectedClasses = isSelected
+    ? 'bg-brand text-white'
+    : 'bg-elev text-muted hover:bg-border hover:text-text';
+
   return (
-    <button onClick={onSelect} className={`${baseClasses} ${isSelected ? selectedClasses : unselectedClasses}`}>
-      {prefix}
-      <span>{label}</span>
-      {suffix}
-    </button>
+    <div
+      className={`${baseClasses} ${selectedClasses} ${className}`}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick?.();
+        }
+      }}
+    >
+      {label}
+    </div>
   );
 };
 

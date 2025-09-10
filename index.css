@@ -1,0 +1,66 @@
+/* Base body styles to match the app's dark theme */
+body {
+  background-color: var(--bg);
+}
+
+/* Custom styles for the glassmorphism card effect */
+.glass-card {
+  background-color: var(--card-bg-alpha);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+/* Hover effect for interactive cards */
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--elev);
+}
+
+/* Custom styles for the Range Slider component to show progress */
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  padding: 0;
+  height: 16px;
+}
+
+.range-slider:focus {
+    outline: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: var(--text);
+  cursor: pointer;
+  margin-top: -6px; /* Center thumb on track */
+}
+
+.range-slider::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 9999px;
+  background: var(--text);
+  cursor: pointer;
+  border: none;
+}
+
+.range-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--brand) var(--percentage), var(--elev) var(--percentage));
+  border-radius: 9999px;
+}
+
+.range-slider::-moz-range-track {
+   width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--brand) var(--percentage), var(--elev) var(--percentage));
+  border-radius: 9999px;
+}

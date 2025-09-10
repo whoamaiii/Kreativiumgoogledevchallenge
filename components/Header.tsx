@@ -1,67 +1,60 @@
-
-import React from 'react';
-import { SettingsIcon } from './icons';
+import React, { useState, useEffect } from 'react';
+import { BrainCircuit, PlusCircle, BarChart, SunIcon, MoonIcon } from './icons';
+import { Route } from '../App';
 
 interface HeaderProps {
-  activePage: string;
-  setActivePage: (page: 'track' | 'showcase' | 'students' | 'reports' | 'recommendations') => void;
+  activeRoute: Route;
 }
 
-const NavItem: React.FC<{
-  label: string;
-  page: 'track' | 'showcase' | 'students' | 'reports' | 'recommendations';
-  activePage: string;
-  onClick: (page: any) => void;
-}> = ({ label, page, activePage, onClick }) => {
-  const isActive = activePage === page;
-  return (
-    <button
-      onClick={() => onClick(page)}
-      className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-        isActive
-          ? 'bg-brand-primary text-white'
-          : 'text-brand-subtle-text hover:text-brand-text hover:bg-white/10'
-      }`}
-    >
-      {label}
-    </button>
-  );
-};
+const Header: React.FC<HeaderProps> = ({ activeRoute }) => {
+  const [theme, setTheme] = useState(() => localStorage.getItem('kv:theme') || 'dark');
 
-const Header: React.FC<HeaderProps> = ({ activePage, setActivePage }) => {
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('theme-light');
+      localStorage.setItem('kv:theme', 'light');
+    } else {
+      document.documentElement.classList.remove('theme-light');
+      localStorage.setItem('kv:theme', 'dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
+
+  const getLinkClasses = (route: Route) =>
+    `flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
+      activeRoute === route
+        ? 'bg-brand text-white'
+        : 'text-muted hover:bg-surface hover:text-text'
+    }`;
+
   return (
-    <header className="sticky top-0 z-10">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16 glass-card rounded-b-xl px-4">
-                <div className="flex items-center">
-                    <div className="flex-shrink-0 text-white font-bold text-lg">
-                        Kreativium
-                    </div>
-                    <nav className="hidden md:block ml-10">
-                        <div className="flex items-baseline space-x-4">
-                            <NavItem label="Dashboard" page={'track'} activePage={activePage} onClick={setActivePage} />
-                            <NavItem label="Students" page={'students'} activePage={activePage} onClick={setActivePage} />
-                            <NavItem label="Reports" page={'reports'} activePage={activePage} onClick={setActivePage} />
-                            <NavItem label="Recommendations" page={'recommendations'} activePage={activePage} onClick={setActivePage} />
-                            <NavItem label="Component Showcase" page={'showcase'} activePage={activePage} onClick={setActivePage} />
-                        </div>
-                    </nav>
-                </div>
-                <div className="flex items-center">
-                    <button className="p-1 rounded-full text-brand-subtle-text hover:text-brand-text focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface focus:ring-white">
-                        <SettingsIcon className="w-6 h-6" />
-                    </button>
-                    <div className="ml-3 relative">
-                        <div>
-                            <button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface focus:ring-white">
-                                <span className="sr-only">Open user menu</span>
-                                <img className="h-8 w-8 rounded-full" src="https://picsum.photos/id/237/32/32" alt="User avatar" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <header className="bg-bg/75 backdrop-blur-sm sticky top-0 z-10 border-b border-border">
+      <nav className="container mx-auto flex justify-between items-center p-4">
+        <a href="#/track" className="flex items-center gap-3 text-2xl font-bold text-text">
+          <BrainCircuit size={32} className="text-brand" />
+          <span>Kreativium</span>
+        </a>
+        <div className="flex items-center gap-4">
+          <a href="#/track" className={getLinkClasses('/track')} aria-current={activeRoute === '/track' ? 'page' : undefined}>
+            <PlusCircle size={20} />
+            <span className="hidden md:inline">Track Session</span>
+          </a>
+          <a href="#/reports" className={getLinkClasses('/reports')} aria-current={activeRoute === '/reports' ? 'page' : undefined}>
+            <BarChart size={20} />
+            <span className="hidden md:inline">Reports</span>
+          </a>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg text-muted hover:bg-surface hover:text-text transition-colors duration-200"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? <SunIcon size={20} /> : <MoonIcon size={20} />}
+          </button>
         </div>
+      </nav>
     </header>
   );
 };
