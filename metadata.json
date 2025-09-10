@@ -1,0 +1,5 @@
+{
+  "name": "Kreativium Sensory and Emotion Tracker",
+  "description": "A non-diagnostic, decision-support tool for special-education teachers to log emotional and sensory inputs and teacher reactions during sessions, then analyze patterns with AI to generate concise, classroom-ready recommendations and a short report.",
+  "requestFramePermissions": []
+}
